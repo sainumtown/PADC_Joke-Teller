@@ -1,22 +1,34 @@
 package xz.sainumtown.joke.activities;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import xz.sainumtown.joke.R;
-import xz.sainumtown.joke.fragments.FirstFragment;
-import xz.sainumtown.joke.fragments.SecondFragment;
-import xz.sainumtown.joke.fragments.ThirdFragment;
+import xz.sainumtown.joke.fragments.JokeFragment;
+import xz.sainumtown.joke.utils.JokeTellerConstants;
 
 
 public class MainActivity extends AppCompatActivity {
-    private Integer pageNumber = 1;
+    private Integer jokeIndex = -1;
+    private FrameLayout flContainer;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +37,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
-
+        flContainer = (FrameLayout) findViewById(R.id.fl_container);
         //  check savedInstanceState for creating fragment
         // if savedInstanceState have data , not created fragment
         if (savedInstanceState == null) {
-            FirstFragment fragment = new FirstFragment();
+            jokeIndex++;
+            JokeFragment fragment = JokeFragment.newInstance(jokeIndex);
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fl_container, fragment)
@@ -42,25 +60,16 @@ public class MainActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (pageNumber) {
-                    case 1:
-                        SecondFragment secondFragment = new SecondFragment();
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.fl_container, secondFragment)
-                                .commit();
-                        pageNumber++;
-                        break;
-                    case 2:
-                        ThirdFragment thirdFragment = new ThirdFragment();
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.fl_container, thirdFragment)
-                                .commit();
-                        pageNumber++;
-                        break;
-                    case 3:
-                        Toast.makeText(getApplicationContext(), "No Post to show", Toast.LENGTH_SHORT).show();
+                jokeIndex++;
+                if (jokeIndex < JokeTellerConstants.TOTAL_JOKES) {
+                    JokeFragment fragment = JokeFragment.newInstance(jokeIndex);
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fl_container, fragment)
+                            .commit();
+                } else {
+                    jokeIndex = JokeTellerConstants.TOTAL_JOKES - 1;
+                    Toast.makeText(getApplicationContext(), "There is no joke", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -70,28 +79,20 @@ public class MainActivity extends AppCompatActivity {
         btnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (pageNumber) {
-                    case 3:
-                        SecondFragment secondFragment = new SecondFragment();
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.fl_container, secondFragment)
-                                .commit();
-                        pageNumber--;
-                        break;
-                    case 2:
-                        FirstFragment firstFragment = new FirstFragment();
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.fl_container, firstFragment)
-                                .commit();
-                        pageNumber--;
-                        break;
-                    case 1:
-                        Toast.makeText(getApplicationContext(), "No Post to show", Toast.LENGTH_SHORT).show();
+                jokeIndex--;
+                if (jokeIndex >= 0) {
+                    JokeFragment fragment = JokeFragment.newInstance(jokeIndex);
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fl_container, fragment)
+                            .commit();
+                } else {
+                    jokeIndex = 0;
+                    Toast.makeText(getApplicationContext(), "There is no joke", Toast.LENGTH_LONG).show();
                 }
             }
         });
+
     }
 
     @Override
@@ -115,4 +116,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

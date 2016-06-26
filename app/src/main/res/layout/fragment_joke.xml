@@ -1,31 +1,34 @@
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="xz.sainumtown.joke.fragments.ThirdFragment">
+    tools:context=".fragments.JokeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
-    <TextView
+    <xz.sainumtown.joke.components.textviews.MMTextView
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_normalx2"
-        android:text="@string/title_third"
+        android:text="@string/title_first"
         android:textStyle="bold"/>
 
     <ImageView
+        android:id="@+id/iv_joke"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:scaleType="fitXY"
         android:layout_marginTop="@dimen/margin_normalx2"
-        android:src="@drawable/joke_3"/>
-    <TextView
+        android:src="@drawable/joke_1"/>
+    <xz.sainumtown.joke.components.textviews.MMTextView
+        android:id="@+id/tv_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_marginTop="@dimen/margin_normalx2"
         android:lineSpacingMultiplier="1.4"
-        android:text="@string/body_third"/>
+        android:text="@string/body_first"/>
+
+
+
 </LinearLayout>

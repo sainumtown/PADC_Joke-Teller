@@ -17,9 +17,18 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#FFFFFF"
-            app:theme="@style/AppTheme.PopupOverlay"
+            app:theme="@style/AppTheme.PopupOverlay">
 
-            />
+
+        <xz.sainumtown.joke.components.textviews.MMTextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:text="@string/head"
+            android:textSize="@dimen/text_heading_1x" />
+        </android.support.v7.widget.Toolbar>
 
 
     </android.support.design.widget.AppBarLayout>
@@ -53,7 +62,7 @@
             android:gravity="right"
             android:orientation="horizontal">
 
-            <RadioButton
+            <xz.sainumtown.joke.components.radiobuttons.MMRadioButton
                 android:id="@+id/rb_joke_very"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,7 +70,7 @@
                 android:paddingRight="@dimen/padding_normal"
                 android:text="@string/joke_very" />
 
-            <RadioButton
+            <xz.sainumtown.joke.components.radiobuttons.MMRadioButton
                 android:id="@+id/rb_joke_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -78,7 +87,7 @@
             android:gravity="right"
             android:orientation="horizontal">
 
-            <Button
+            <xz.sainumtown.joke.components.buttons.MMbutton
                 android:id="@+id/btn_previous"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -89,7 +98,7 @@
                 android:text="@string/previous"
                 android:textColor="#FFFFFF" />
 
-            <Button
+            <xz.sainumtown.joke.components.buttons.MMbutton
                 android:id="@+id/btn_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
